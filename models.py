@@ -1,7 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from datetime import datetime
 from typing import Optional
 
 class SuperModel(BaseModel):
     name: str  # We always require SUperModel instances to have a name
-    created: Optional[datetime] = None  # There "may" be a "created" field. Don't fail if there isnt
+    created: datetime
+    calculated: Optional[datetime] = None
+    
+    @validator("calculated")
+    def validate_field(cls):
+        print(cls)
